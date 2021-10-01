@@ -5,12 +5,12 @@
 var Messages = {
 
   // TODO: Define how you want to store your messages.
-  _data: [],
+  _data: {},
 
   // TODO: Define methods which allow you to retrieve from,
   // add to, and generally interact with the messages.
   _store: function(message) {
-    this._data.push(message);
+    this._data[message.message_id] = message;
   },
 
   _getAllMessages: function() {

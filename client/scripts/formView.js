@@ -28,6 +28,12 @@ var FormView = {
       console.log('Message not sent');
     });
 
+    // while (!done) {
+
+    // }
+    // MessagesView._render();
+
+
   },
 
   setStatus: function(active) {

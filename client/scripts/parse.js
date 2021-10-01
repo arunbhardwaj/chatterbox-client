@@ -18,6 +18,7 @@ var Parse = {
         console.error('chatterbox: Failed to fetch messages', error);
       }
     });
+    // .then(() => {MessagesView.render(); });
 
   },
 

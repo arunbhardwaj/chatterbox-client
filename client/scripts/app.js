@@ -17,23 +17,31 @@ var App = {
 
     // Fetch initial batch of messages
     App.startSpinner();
-    App.fetch(App.stopSpinner);
+    App.fetch(() => {
+      App.stopSpinner();
+    });
 
     // TODO: Make sure the app loads data from the API
     // continually, instead of just once at the start.
+    setInterval(() => {
+      App.fetch(MessagesView.render());
+    }, 500);
   },
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       // examine the response from the server request:
-      console.log(data);
+      // TODO: for some reason, it doesn't fetch from the server sometimes
+      // and the only way to fix that hiccup is to log the data?
+      // console.log(data);
 
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
-      for (var obj of data) {
-        Messages._store(obj.text);
+      if (data && data.length) {
+        for (var obj of data) {
+          Messages._store(obj);
+        }
       }
-      console.log(Messages);
     });
     callback();
   },
