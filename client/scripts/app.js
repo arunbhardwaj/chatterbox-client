@@ -30,7 +30,12 @@ var App = {
 
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
+      for (var obj of data) {
+        Messages._store(obj.text);
+      }
+      console.log(Messages);
     });
+    callback();
   },
 
   startSpinner: function() {
