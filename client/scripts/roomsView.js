@@ -5,6 +5,7 @@ var RoomsView = {
 
   $button: $('#rooms button'),
   $select: $('#rooms select'),
+  $chats: $('#chats'),
 
   initialize: function() {
     // TODO: Perform any work which needs to be done
@@ -28,14 +29,15 @@ var RoomsView = {
 
   handleChange: function(event) {
     // TODO: Handle a user selecting a different room.
-
+    var room = RoomsView.$select.val();
+    MessagesView.derenderRoom(room);
+    MessagesView.render(room);
   },
 
   handleClick: function(event) {
     // TODO: Make this function actually send a room to the Parse API.
     // TODO: Handle the user clicking the "Add Room" button.
     // Rooms._addRoom();
-    console.log('it happened');
   }
 
 };

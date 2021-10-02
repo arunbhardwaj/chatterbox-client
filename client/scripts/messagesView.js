@@ -13,17 +13,33 @@ var MessagesView = {
     this.render();
   },
 
-  render: function() {
+  render: function(roomName) {
     // TODO: Render _all_ the messages.
     let messages = Messages._getAllMessages();
 
+    // $(".room-options").children("option:selected").val();
     // render only if new messages are added.
     for (let id in messages) {
-      if (!this._prevID.has(id)) {
-        this.renderMessage(messages[id]);
+      var message = messages[id];
+      if (!this._prevID.has(id) && message.roomname === roomName) {
+        this.renderMessage(message);
+        this._prevID.add(id);
+      } else {
+        this.renderMessage(message);
         this._prevID.add(id);
       }
+      // else {
+      //   this.derenderMessage(message);
+      //   this._prevID.delete(id);
+      // }
     }
+
+  },
+
+  // TODO: implement this so we don't have to empty chat every time
+  derenderRoom: function(room) {
+    this.$chats.empty();
+    this._prevID = new Set();
   },
 
   renderMessage: function(message) {

@@ -5,6 +5,7 @@
 var FormView = {
 
   $form: $('form'),
+  $selected: $('#rooms select'),
 
   initialize: function() {
     FormView.$form.on('submit', FormView.handleSubmit);
@@ -14,15 +15,15 @@ var FormView = {
     // Stop the browser from submitting the form
     event.preventDefault();
 
-    // TODO: Currently, this is all handleSubmit does.
-    // Make this function actually send a message to the Parse API.
     var message = {
-      username: 'alphakap',
+      username: App.username,
       text: $('#message').val(),
-      roomname: 'protectyourself'
+      roomname: FormView.$selected.val(),
     };
 
     Parse.create(JSON.stringify(message), () => {
+      App.fetch(() => MessagesView.render(FormView.$selected.val())); // this doesn't work for displaying immediately
+
       console.log('Message sent');
     }, () => {
       console.log('Message not sent');
