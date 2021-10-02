@@ -21,8 +21,9 @@ var FormView = {
       roomname: FormView.$selected.val(),
     };
 
-    Parse.create(JSON.stringify(message), () => {
-      App.fetch(() => MessagesView.render(FormView.$selected.val())); // this doesn't work for displaying immediately
+    Parse.create(message, () => {
+      // Fetching with rendering only way to get messages to appear right after submission.
+      App.fetch(() => MessagesView.render(FormView.$selected.val()));
 
       console.log('Message sent');
     }, () => {

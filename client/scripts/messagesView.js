@@ -58,7 +58,7 @@ var MessagesView = {
     // TODO: handle a user clicking on a message
     // (this should add the sender to the user's friend list).
     var username = $(this).text();
-    Friends.toggle(username);
+    Friends.toggleStatus(username);
   }
 
 };

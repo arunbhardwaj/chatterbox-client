@@ -21,7 +21,7 @@ var Friends = {
     Friends._data[username] = true;
   },
 
-  toggle: (username) => {
+  toggleStatus: (username) => {
     if (Friends.check(username)) {
       Friends._data[username] = !Friends._data[username];
     } else {

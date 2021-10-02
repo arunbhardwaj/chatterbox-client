@@ -11,15 +11,13 @@ var Parse = {
     $.ajax({
       url: Parse.server,
       type: 'POST',
-      data: message,
+      data: JSON.stringify(message),
       contentType: 'application/json',
       success: successCB,
       error: errorCB || function(error) {
         console.error('chatterbox: Failed to fetch messages', error);
       }
     });
-    // .then(() => {MessagesView.render(); });
-
   },
 
   readAll: function(successCB, errorCB = null) {

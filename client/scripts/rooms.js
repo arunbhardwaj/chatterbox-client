@@ -12,7 +12,7 @@ var Rooms = {
   // mark a room as selected, etc.
 
   // Add rooms
-  _addRoom: (roomName, $selectTag) => {
+  add: (roomName, $selectTag) => {
     if (!Rooms._hasRoom(roomName)) {
       Rooms._data.add(roomName);
       var roomObj = {'room': roomName};
@@ -34,7 +34,7 @@ var Rooms = {
     for (let id in messages) {
       let room = messages[id].roomname;
       if (room !== null) {
-        Rooms._addRoom(room, $selectTag);
+        Rooms.add(room, $selectTag);
       }
     }
   },
