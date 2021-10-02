@@ -18,12 +18,8 @@ var MessagesView = {
     let messages = Messages._getAllMessages();
 
     // render only if new messages are added.
-
-
     for (let id in messages) {
-      if (this._prevID.has(id)) {
-        continue;
-      } else {
+      if (!this._prevID.has(id)) {
         this.renderMessage(messages[id]);
         this._prevID.add(id);
       }
@@ -32,12 +28,7 @@ var MessagesView = {
 
   renderMessage: function(message) {
     // TODO: Render a single message.
-    // var $ele = $(<span></span>);
-    // console.log('message', message);
-    // console.log(MessageView.render(message));
-    // console.log("rendering");
     $(MessageView.render(message)).prependTo(this.$chats);
-    // console.log(message);
   },
 
   handleClick: function(event) {
