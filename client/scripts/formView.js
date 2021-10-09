@@ -23,8 +23,8 @@ var FormView = {
 
     Parse.create(message, () => {
       // Fetching with rendering only way to get messages to appear right after submission.
-      App.fetch(() => MessagesView.render(FormView.$selected.val()));
-
+      // App.fetch(() => MessagesView.render(FormView.$selected.val()));
+      MessagesView.render(FormView.$selected.val());
       console.log('Message sent');
     }, () => {
       console.log('Message not sent');

@@ -8,38 +8,39 @@ var MessagesView = {
   users: $('.username'),
 
   initialize: function() {
-    // TODO: Perform any work which needs to be done
-    // when this view loads.
-    // setTimeout(() => { this.render(); }, 100);
     this.render();
     $('#chats').delegate('.username', 'click', this.handleClick);
-
   },
 
   render: function(roomName) {
-    // TODO: Render _all_ the messages.
     let messages = Messages._getAllMessages();
 
     // render only if new messages are added.
+    // Render differently if roomName is specified
     for (let id in messages) {
       var message = messages[id];
-      if (!this._prevID.has(id) && message.roomname === roomName) {
-        this.renderMessage(message);
-        this._prevID.add(id);
+      if (arguments.length === 1) {
+        if (!MessagesView._prevID.has(id) && message.roomname === roomName) {
+          MessagesView.renderMessage(message);
+          MessagesView._prevID.add(id);
+        }
+      } else {
+        if (!MessagesView._prevID.has(id)) {
+          MessagesView.renderMessage(message);
+          MessagesView._prevID.add(id);
+        }
       }
     }
-
-
   },
 
-  // TODO: implement this so we don't have to empty chat every time
+  // TODO: implement this differently such that we don't have to empty chat every time
   derenderRoom: function(room) {
     this.$chats.empty();
     this._prevID = new Set();
   },
 
+  // Render a single message
   renderMessage: function(message) {
-    // TODO: Render a single message.
     var templateMessage = $(MessageView.render(message));
     templateMessage.prependTo(this.$chats);
 
@@ -51,12 +52,10 @@ var MessagesView = {
     } else {
       templateMessage.removeClass('friend');
     }
-
   },
 
+  // handles a user clicking on a message which adds the sender to the user's friend list.
   handleClick: function(event) {
-    // TODO: handle a user clicking on a message
-    // (this should add the sender to the user's friend list).
     var username = $(this).text();
     Friends.toggleStatus(username);
   }

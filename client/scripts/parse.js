@@ -1,13 +1,15 @@
 // The Parse object represents your connection to outside world!
 // Or... just the Parse API. Populate this object with methods
 // which send requests to the RESTful Parse API.
+const myOwnEndpoint = '/classes/messages/users';
 
 var Parse = {
-
-  server: `https://app-hrsei-api.herokuapp.com/api/chatterbox/messages/${window.CAMPUS}`,
+  // when swapping endpoints, be sure to swap out how you fetch since they return different data types.
+  server:
+  `http://127.0.0.1:3000${myOwnEndpoint}`,
+  // `https://app-hrsei-api.herokuapp.com/api/chatterbox/messages/${window.CAMPUS}`,
 
   create: function(message, successCB, errorCB = null) {
-    // TODO: send a request to the Parse API to save the message
     $.ajax({
       url: Parse.server,
       type: 'POST',
@@ -15,7 +17,7 @@ var Parse = {
       contentType: 'application/json',
       success: successCB,
       error: errorCB || function(error) {
-        console.error('chatterbox: Failed to fetch messages', error);
+        console.error('chatterbox: Failed to create message', error);
       }
     });
   },
@@ -24,11 +26,24 @@ var Parse = {
     $.ajax({
       url: Parse.server,
       type: 'GET',
-      data: { order: '-createdAt' },
-      contentType: 'application/json',
+      // data: { order: '-createdAt' },
+      // contentType: 'application/json',
       success: successCB,
       error: errorCB || function(error) {
         console.error('chatterbox: Failed to fetch messages', error);
+      }
+    });
+  },
+
+  readAUser: function(successCB, errorCB = null) {
+    $.ajax({
+      url: Parse.server + '/users',
+      type: 'GET',
+      data: { user: 'Arun' },
+      contentType: 'application/json',
+      success: successCB,
+      error: errorCB || function(error) {
+        console.error('chatterbox: Failed to fetch messages from a user', error);
       }
     });
   }

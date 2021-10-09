@@ -9,9 +9,15 @@ var Messages = {
 
   // TODO: Define methods which allow you to retrieve from,
   // add to, and generally interact with the messages.
-  _store: function(message) {
-    // console.log('messages: ', this);
-    this._data[message.message_id] = message;
+  _store: function(messages, callback = ()=>{}) {
+    for (var message of messages) {
+      this.addMessage(message);
+    }
+    callback(Messages._data);
+  },
+
+  addMessage: (message) => {
+    Messages._data[message.id] = message;
   },
 
   _getAllMessages: function() {

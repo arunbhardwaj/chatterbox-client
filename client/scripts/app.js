@@ -22,24 +22,30 @@ var App = {
 
     // TODO: Make sure the app loads data from the API
     // continually, instead of just once at the start.
+    // setInterval(() => {
+    //   App.fetch(() => {
+    //     MessagesView.render(App.$selected.val());
+    //     RoomsView.render();
+    //     App.stopSpinner();
+    //   });
+    // }, 5000);
+
     setInterval(() => {
-      App.fetch(() => {
-        MessagesView.render(App.$selected.val());
-        RoomsView.render();
-        App.stopSpinner();
-      });
-    }, 1000);
+      App.fetchAUser();
+      App.stopSpinner();
+    }, 2000);
 
   },
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      if (data && data.length) {
-        for (var obj of data) {
-          Messages._store(obj);
-        }
-      }
+      Messages._store(data.results);
     });
+    callback();
+  },
+
+  fetchAUser: function(callback = ()=>{}) {
+    Parse.readAUser();
     callback();
   },
 
